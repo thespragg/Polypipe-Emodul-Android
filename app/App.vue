@@ -2,7 +2,12 @@
   <Page actionBarHidden="true">
     <FlexboxLayout flexDirection="column">
       <Image src="~/assets/icons/hamburger.png" @tap="goToMenu" class="menu-hamburger" />
-      <FlexboxLayout class="current-mode" flexDirection="column" justifyContent="center" @tap="navigateToModes">
+      <FlexboxLayout
+        class="current-mode"
+        flexDirection="column"
+        justifyContent="center"
+        @tap="navigateToModes"
+      >
         <Label class="current-mode-label" text="Current Mode:" />
         <Label class="current-mode-main" text="Weekday" />
         <Label class="current-mode-tooltip" text="Tap the mode to change it" />
@@ -12,33 +17,18 @@
 </template>
 
 <script >
-import Menu from "./views/Menu"
-import Modes from "./views/Modes"
-
 export default {
-  components: {
-    Menu,
-  },
   data() {
     return {};
   },
+  mounted() {
+  },
   methods: {
     goToMenu() {
-      this.$navigateTo(Menu, {
-        transitionAndroid: {
-          name: "slideRight",
-          duration: 200,
-          curve: "linear",
-        },
-      })},
-      navigateToModes(){
-        this.$navigateTo(Modes,{
-        transitionAndroid: {
-          name: "slideLeft",
-          duration: 200,
-          curve: "linear",
-        }
-      })
+      this.$router.navigate("Menu", "slideRight")
+    },
+    navigateToModes() {
+      this.$router.navigate("Modes", "slideleft")
     },
   },
 };
@@ -58,10 +48,10 @@ export default {
   margin: 2% 0 0 4%;
 }
 .current-mode {
-  background-color: #31D16C;
+  background-color: #31d16c;
   border-radius: 10%;
   margin: 2% 4% 0 4%;
-  android-elevation:6;
+  android-elevation: 6;
 }
 
 .current-mode-label {
@@ -75,7 +65,7 @@ export default {
 .current-mode-main {
   color: white;
   font-size: 40pt;
-  padding:3%;
+  padding: 3%;
   font-family: "OpenSans-SemiBold";
   align-self: center;
 }

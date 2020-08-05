@@ -7,17 +7,10 @@
 </template>
 
 <script>
-import Menu from "./Menu";
 export default {
   methods: {
     goToMenu() {
-      this.$navigateTo(Menu, {
-        transitionAndroid: {
-          name: "slideRight",
-          duration: 200,
-          curve: "linear",
-        },
-      });
+      this.$router.navigate("Menu", "slideRight")
     },
   },
 };

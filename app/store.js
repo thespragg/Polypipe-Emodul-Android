@@ -5,12 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-
+    authenticated: false
   },
   mutations: {
-
+    setAuthenticated(state,value){state.authenticated = value}
   },
-  actions: {
-
+  getters: {
+    authenticated: state => state.authenticated
   }
 });
