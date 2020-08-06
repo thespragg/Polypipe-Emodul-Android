@@ -2,6 +2,7 @@ import Vue from 'nativescript-vue'
 import App from './App'
 import VueDevtools from 'nativescript-vue-devtools'
 import axios from 'axios'
+import { store } from './store'
 
 const axiosConf = {
   baseURL: "https://polypipe.emodul.eu/"
@@ -13,8 +14,6 @@ Vue.prototype.$http = instance
 if (TNS_ENV !== 'production') {
   Vue.use(VueDevtools)
 }
-import store from './store'
-
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = (TNS_ENV === 'production')
 
@@ -65,3 +64,12 @@ router.navigate = (destination, direction) => {
 Vue.prototype.$router = router
 
 vue.$start()
+
+const application = require("tns-core-modules/application");
+if(application.android){
+  application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent)
+}
+
+function backEvent(){
+  console.log("test")
+}

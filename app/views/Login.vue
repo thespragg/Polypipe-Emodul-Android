@@ -9,6 +9,7 @@
 <script>
 export default {
   mounted(){
+    this.$store.commit("setAuthenticated",false);
   },
   methods: {
     goToMenu() {
