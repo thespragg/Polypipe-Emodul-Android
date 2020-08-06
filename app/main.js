@@ -44,9 +44,9 @@ router.routes = {
   "Login": Login,
   "Home": Home,
   "Modes": Modes,
-  "Menu":Menu,
-  "Zones":Zones,
-  "Statistics":Statistics
+  "Menu": Menu,
+  "Zones": Zones,
+  "Statistics": Statistics
 }
 
 router.navigate = (destination, direction) => {
@@ -62,14 +62,17 @@ router.navigate = (destination, direction) => {
 }
 
 Vue.prototype.$router = router
+Vue.prototype.$store = store
+
+const application = require("tns-core-modules/application");
+if (application.android) {
+  application.android.on(application.AndroidApplication.activityBackPressedEvent, (args) => {
+    if (!vue.$store.getters.authenticated) {
+      args.cancel = true
+    }
+    else{ args.cancel = false }
+  })
+}
 
 vue.$start()
 
-const application = require("tns-core-modules/application");
-if(application.android){
-  application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent)
-}
-
-function backEvent(){
-  console.log("test")
-}
