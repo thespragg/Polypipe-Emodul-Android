@@ -49,15 +49,15 @@ router.routes = {
   "Statistics": Statistics
 }
 
-router.navigate = (destination, direction) => {
-  console.log(direction)
+router.navigate = (destination, direction, props) => {
   var transition = {
     name: direction,
     duration: 200,
     curve: "linear",
   }
   vue.$navigateTo(vue.$router.routes[destination], {
-    transitionAndroid: transition
+    transitionAndroid: transition,
+    props: props
   })
 }
 
@@ -67,10 +67,7 @@ Vue.prototype.$store = store
 const application = require("tns-core-modules/application");
 if (application.android) {
   application.android.on(application.AndroidApplication.activityBackPressedEvent, (args) => {
-    if (!vue.$store.getters.authenticated) {
-      args.cancel = true
-    }
-    else{ args.cancel = false }
+    args.cancel = true
   })
 }
 

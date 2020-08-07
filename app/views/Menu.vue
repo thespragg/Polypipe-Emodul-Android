@@ -17,6 +17,7 @@
         <Image src="~/assets/icons/modes.png" class="icon" verticalAlignment="center" />
         <Label class="link-text" text="Modes" verticalAlignment="center" />
       </StackLayout>
+      <Label text="log out" @tap="logOut" />
     </StackLayout>
   </Page>
 </template>
@@ -28,14 +29,20 @@ export default {
   components: {
     App,
   },
-  mounted() {
-  },
+  mounted() {},
   data() {
     return {};
   },
   methods: {
     menuNavigation(destination) {
       this.$router.navigate(destination, "slideLeft");
+    },
+    logOut() {
+      this.$router.navigate("Login","fade", {
+        props: {
+          logout: true,
+        },
+      });
     },
   },
 };
