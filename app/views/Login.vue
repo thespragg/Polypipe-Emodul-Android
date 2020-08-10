@@ -23,6 +23,9 @@
 </template>
 
 <script>
+var SecureStorage = require("nativescript-secure-storage").SecureStorage;
+var secureStorage = new SecureStorage();
+
 export default {
   data() {
     return {
@@ -35,12 +38,17 @@ export default {
   mounted() {
     if (this.logout) {
       this.$store.commit("setAuthenticated", false);
+    } else {
+      this.password = secureStorage.getSync({ key: "password" });
+      this.username = secureStorage.getSync({ key: "username" });
+
+      if(this.password){
+        this.logIn();
+      }
     }
   },
   methods: {
     logIn() {
-      this.$router.navigate("Home")
-      
       var login = {
         languageId: "en",
         password: this.password,
@@ -49,6 +57,15 @@ export default {
       };
       this.$http.post("login", login).then((res) => {
         if (res.data.authenticated) {
+          secureStorage.setSync({
+            key: "password",
+            value: login.password,
+          });
+
+          secureStorage.setSync({
+            key: "username",
+            value: login.username,
+          });
           this.$store.commit("setAuthenticated", true);
           this.$router.navigate("Home", "slideRight");
         } else {
